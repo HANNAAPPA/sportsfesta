@@ -9,36 +9,75 @@
 <body>
   <div class="container">
     <h1>체육한마당</h1>
+    
+    <!-- 메인 메뉴 -->
     <div class="menu">
-      <button onclick="showPage('match')">체육한마당 대진</button>
+      <button onclick="showPage('main-matches')">체육한마당 대진</button>
       <button onclick="showPage('rules')">체육한마당 경기규칙</button>
     </div>
 
-    <div id="match" class="content">
+    <!-- 대진 선택 메뉴 -->
+    <div id="main-matches" class="content">
       <button class="home" onclick="goHome()">홈</button>
-      <h2>대진표</h2>
-      <img src="match.jpg" alt="대진표 이미지" />
+      <h2>대진 선택</h2>
+      <button onclick="showPage('match1')">1학년 농구 대진</button><br><br>
+      <button onclick="showPage('match2')">2학년 배구 대진</button><br><br>
+      <button onclick="showPage('match3')">3학년 풋살 대진</button><br><br>
+      <button onclick="showPage('match4')">협동 판 뒤집기</button><br><br>
+      <button onclick="showPage('match5')">팀 줄넘기</button>
     </div>
 
+    <!-- 개별 대진 페이지들 -->
+    <div id="match1" class="content">
+      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+      <h2>1학년 농구 대진</h2>
+      <img src="1daejin.png" alt="1학년 농구 대진표" />
+    </div>
+
+    <div id="match2" class="content">
+      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+      <h2>2학년 배구 대진</h2>
+      <img src="2daejin.png" alt="2학년 배구 대진표" />
+    </div>
+
+    <div id="match3" class="content">
+      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+      <h2>3학년 풋살 대진</h2>
+      <img src="3daejin.png" alt="3학년 풋살 대진표" />
+    </div>
+
+    <div id="match4" class="content">
+      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+      <h2>협동 판 뒤집기</h2>
+      <img src="pandwi.png" alt="판 뒤집기 대진표" />
+    </div>
+
+    <div id="match5" class="content">
+      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+      <h2>팀 줄넘기</h2>
+      <img src="julnumgi.png" alt="팀 줄넘기 대진표" />
+    </div>
+
+    <!-- 경기 규칙 페이지 -->
     <div id="rules" class="content">
       <button class="home" onclick="goHome()">홈</button>
-      <h2>경기규칙</h2>
-      <img src="rules.jpg" alt="경기규칙 이미지" />
+      <h2>경기 규칙</h2>
+      <img src="rules.png" alt="경기 규칙" />
     </div>
   </div>
 
   <script>
     function showPage(id) {
+      document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
       document.querySelector('.menu').style.display = 'none';
       document.getElementById(id).style.display = 'block';
     }
 
     function goHome() {
-      document.querySelector('.menu').style.display = 'flex';
       document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
+      document.querySelector('.menu').style.display = 'flex';
     }
 
-    // 초기에는 메뉴만 보이게
     window.onload = goHome;
   </script>
 </body>
