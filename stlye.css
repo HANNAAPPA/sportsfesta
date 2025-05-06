@@ -10,22 +10,25 @@ body {
   padding: 20px;
 }
 
+/* 홈 화면 버튼 스타일 */
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 300px;
-  margin: 0 auto;
+  align-items: center;
+  gap: 40px; /* 버튼 사이 간격 크게 */
+  margin-top: 80px;
 }
 
+/* 모든 버튼 공통 스타일 */
 button {
-  padding: 15px;
-  font-size: 18px;
+  padding: 20px 40px; /* 더 크고 넓게 */
+  font-size: 24px;     /* 글자도 크게 */
   cursor: pointer;
   border: none;
   background-color: #4caf50;
   color: white;
-  border-radius: 8px;
+  border-radius: 12px;
+  transition: background-color 0.2s;
 }
 
 button:hover {
@@ -44,4 +47,5 @@ img {
 
 .home {
   background-color: #2196f3;
+  margin-bottom: 20px;
 }
