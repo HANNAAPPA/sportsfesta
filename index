@@ -1,12 +1,45 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>체육한마당</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>체육한마당 웹페이지에 오신 것을 환영합니다!</h1>
-  <p>GitHub Pages 첫 테스트입니다.</p>
+  <div class="container">
+    <h1>체육한마당</h1>
+    <div class="menu">
+      <button onclick="showPage('match')">체육한마당 대진</button>
+      <button onclick="showPage('rules')">체육한마당 경기규칙</button>
+    </div>
+
+    <div id="match" class="content">
+      <button class="home" onclick="goHome()">홈</button>
+      <h2>대진표</h2>
+      <img src="match.jpg" alt="대진표 이미지" />
+    </div>
+
+    <div id="rules" class="content">
+      <button class="home" onclick="goHome()">홈</button>
+      <h2>경기규칙</h2>
+      <img src="rules.jpg" alt="경기규칙 이미지" />
+    </div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelector('.menu').style.display = 'none';
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function goHome() {
+      document.querySelector('.menu').style.display = 'flex';
+      document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
+    }
+
+    // 초기에는 메뉴만 보이게
+    window.onload = goHome;
+  </script>
 </body>
 </html>
