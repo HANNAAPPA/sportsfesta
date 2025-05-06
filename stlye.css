@@ -40,9 +40,12 @@ button:hover {
 }
 
 img {
-  max-width: 90%;
+  width: 100%;
+  max-width: 600px;  /* 최대 크기 제한 (예: 600px) */
   height: auto;
   margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .home {
