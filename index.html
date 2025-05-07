@@ -10,13 +10,11 @@
   <div class="container">
     <h1>체육한마당</h1>
 
-    <!-- 메인 메뉴 -->
     <div class="menu">
       <button onclick="showPage('main-matches')">체육한마당 대진</button>
       <button onclick="showPage('rules')">체육한마당 경기규칙</button>
     </div>
 
-    <!-- 대진 선택 메뉴 -->
     <div id="main-matches" class="content">
       <button class="home" onclick="goHome()">홈</button>
       <h2>대진 선택</h2>
@@ -27,7 +25,6 @@
       <button onclick="showPage('match5')">팀 줄넘기</button>
     </div>
 
-    <!-- 개별 대진 페이지들 -->
     <div id="match1" class="content">
       <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
       <h2>1학년 농구 대진</h2>
@@ -58,7 +55,6 @@
       <img src="julnumgi.png" alt="팀 줄넘기" onclick="openLightbox(this)" />
     </div>
 
-    <!-- 경기 규칙 -->
     <div id="rules" class="content">
       <button class="home" onclick="goHome()">홈</button>
       <h2>경기 규칙</h2>
@@ -66,12 +62,11 @@
     </div>
   </div>
 
-  <!-- ✅ (중요) 라이트박스 오버레이 영역 -->
+  <!-- ✅ 라이트박스 영역 -->
   <div id="lightbox" onclick="closeLightbox()">
     <img id="lightbox-img" src="" alt="확대 이미지" />
   </div>
 
-  <!-- ✅ JavaScript (위에서 말한 4번) -->
   <script>
     function showPage(id) {
       document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
@@ -89,6 +84,7 @@
       const lightboxImg = document.getElementById('lightbox-img');
       lightboxImg.src = imgElement.src;
       lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
@@ -96,6 +92,7 @@
       const lightboxImg = document.getElementById('lightbox-img');
       lightbox.style.display = 'none';
       lightboxImg.src = '';
+      document.body.style.overflow = '';
     }
 
     window.onload = goHome;
