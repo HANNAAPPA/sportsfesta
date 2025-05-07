@@ -10,11 +10,13 @@
   <div class="container">
     <h1>체육한마당</h1>
 
+    <!-- 메인 메뉴 -->
     <div class="menu">
       <button onclick="showPage('main-matches')">체육한마당 대진</button>
       <button onclick="showPage('rules')">체육한마당 경기규칙</button>
     </div>
 
+    <!-- 대진 선택 메뉴 -->
     <div id="main-matches" class="content">
       <button class="home" onclick="goHome()">홈</button>
       <h2>대진 선택</h2>
@@ -25,46 +27,43 @@
       <button onclick="showPage('match5')">팀 줄넘기</button>
     </div>
 
-    <div id="match1" class="content">
-      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+    <!-- 개별 대진 페이지들 -->
+    <div id="match1" class="content match-page" data-index="1">
+      <button class="home" onclick="goHome()">홈</button>
       <h2>1학년 농구 대진</h2>
-      <img src="1daejin.png" alt="1학년 농구 대진표" onclick="openLightbox(this)" />
+      <img src="1daejin.png" alt="1학년 농구 대진표" onclick="toggleZoom(this)" />
     </div>
 
-    <div id="match2" class="content">
-      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+    <div id="match2" class="content match-page" data-index="2">
+      <button class="home" onclick="goHome()">홈</button>
       <h2>2학년 배구 대진</h2>
-      <img src="2daejin.png" alt="2학년 배구 대진표" onclick="openLightbox(this)" />
+      <img src="2daejin.png" alt="2학년 배구 대진표" onclick="toggleZoom(this)" />
     </div>
 
-    <div id="match3" class="content">
-      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+    <div id="match3" class="content match-page" data-index="3">
+      <button class="home" onclick="goHome()">홈</button>
       <h2>3학년 풋살 대진</h2>
-      <img src="3daejin.png" alt="3학년 풋살 대진표" onclick="openLightbox(this)" />
+      <img src="3daejin.png" alt="3학년 풋살 대진표" onclick="toggleZoom(this)" />
     </div>
 
-    <div id="match4" class="content">
-      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+    <div id="match4" class="content match-page" data-index="4">
+      <button class="home" onclick="goHome()">홈</button>
       <h2>협동 판 뒤집기</h2>
-      <img src="pandwi.png" alt="판 뒤집기" onclick="openLightbox(this)" />
+      <img src="pandwi.png" alt="판 뒤집기 대진표" onclick="toggleZoom(this)" />
     </div>
 
-    <div id="match5" class="content">
-      <button class="home" onclick="showPage('main-matches')">← 대진 목록</button>
+    <div id="match5" class="content match-page" data-index="5">
+      <button class="home" onclick="goHome()">홈</button>
       <h2>팀 줄넘기</h2>
-      <img src="julnumgi.png" alt="팀 줄넘기" onclick="openLightbox(this)" />
+      <img src="julnumgi.png" alt="팀 줄넘기 대진표" onclick="toggleZoom(this)" />
     </div>
 
+    <!-- 경기 규칙 -->
     <div id="rules" class="content">
       <button class="home" onclick="goHome()">홈</button>
       <h2>경기 규칙</h2>
-      <img src="rules.png" alt="경기 규칙" onclick="openLightbox(this)" />
+      <img src="rules.png" alt="경기 규칙" onclick="toggleZoom(this)" />
     </div>
-  </div>
-
-  <!-- ✅ 라이트박스 영역 -->
-  <div id="lightbox" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="확대 이미지" />
   </div>
 
   <script>
@@ -72,28 +71,51 @@
       document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
       document.querySelector('.menu').style.display = 'none';
       document.getElementById(id).style.display = 'block';
+      currentPage = id;
     }
 
     function goHome() {
       document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
       document.querySelector('.menu').style.display = 'flex';
+      currentPage = null;
     }
 
-    function openLightbox(imgElement) {
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      lightboxImg.src = imgElement.src;
-      lightbox.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
+    function toggleZoom(img) {
+      img.classList.toggle('zoomed');
     }
 
-    function closeLightbox() {
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      lightbox.style.display = 'none';
-      lightboxImg.src = '';
-      document.body.style.overflow = '';
-    }
+    // 슬라이드 기능
+    let currentPage = null;
+    document.addEventListener('keydown', function(e) {
+      if (!currentPage) return;
+      const allPages = Array.from(document.querySelectorAll('.match-page'));
+      const currentIndex = allPages.findIndex(p => p.id === currentPage);
+      if (e.key === 'ArrowRight' && currentIndex < allPages.length - 1) {
+        showPage(allPages[currentIndex + 1].id);
+      } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        showPage(allPages[currentIndex - 1].id);
+      }
+    });
+
+    // 모바일 터치 스와이프
+    let startX = 0;
+    document.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+    });
+
+    document.addEventListener('touchend', e => {
+      if (!currentPage) return;
+      let endX = e.changedTouches[0].clientX;
+      const diff = endX - startX;
+      const allPages = Array.from(document.querySelectorAll('.match-page'));
+      const currentIndex = allPages.findIndex(p => p.id === currentPage);
+
+      if (diff < -50 && currentIndex < allPages.length - 1) {
+        showPage(allPages[currentIndex + 1].id); // swipe left → next
+      } else if (diff > 50 && currentIndex > 0) {
+        showPage(allPages[currentIndex - 1].id); // swipe right → prev
+      }
+    });
 
     window.onload = goHome;
   </script>
